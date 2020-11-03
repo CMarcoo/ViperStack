@@ -32,7 +32,7 @@ public enum BukkitMethod {
     private final Class<?>[] parametersOrder;
     private final Class<?> returnType;
 
-    private final Map<BukkitMethod, Method> cachedMethod = new EnumMap<>(BukkitMethod.class);
+    private static final Map<BukkitMethod, Method> cachedMethod = new EnumMap<>(BukkitMethod.class);
 
     BukkitMethod(final BukkitPackage.PackageType methodOwner, final String methodName, final Class<?>[] parametersOrder, final Class<?> returnType) {
         this.packageType = methodOwner;
@@ -63,7 +63,7 @@ public enum BukkitMethod {
             throw new IllegalArgumentException("Your Minecraft server software is missing a proper " + methodName + " implementation.");
         } else {
             try {
-                if (invokeFrom.getClass().isAssignableFrom(BukkitPackage.PACKAGE.reflectInto(this.packageType))) {
+                if (BukkitPackage.PACKAGE.reflectInto(this.packageType).isAssignableFrom(invokeFrom.getClass())) {
                     if (objects.length != this.parametersOrder.length) {
                         throw new IllegalArgumentException("The provided arguments number was not " + this.parametersOrder.length);
                     }
@@ -73,7 +73,7 @@ public enum BukkitMethod {
                         for (int i = 0; i < objects.length; i++) {
                             final Class<?> oClass = objects[i].getClass();
                             final Class<?> pClass = this.parametersOrder[i];
-                            if (!oClass.isAssignableFrom(pClass)) {
+                            if (!pClass.isAssignableFrom(oClass)) {
                                 throw new IllegalArgumentException(String.format(
                                         "Argument at position %d should have been of type %s, but is %s.",
                                         i,

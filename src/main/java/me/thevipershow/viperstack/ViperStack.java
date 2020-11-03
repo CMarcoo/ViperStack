@@ -14,19 +14,25 @@ public final class ViperStack extends AbstractViperStack {
         final Class<?> itemStackClass = BukkitPackage.PACKAGE.reflectInto(BukkitPackage.PackageType.ITEM_STACK);
 
         final Object stack;
-        if (amount != 0x01) {
+        if (amount > 1) {
             stack = BukkitConstructor.ITEM_STACK.newInstance(super.material, super.amount);
         } else {
             stack = BukkitConstructor.ITEM_STACK.newInstance(super.material);
         }
 
-        final boolean nullName = name == null, nullLore = lore == null;
+        final boolean nullName = name == null;
+        final boolean nullLore = lore == null;
 
         if (!nullName || !nullLore) {
             final Object meta = BukkitMethod.GET_ITEM_META.invokeMethod(stack);
-            if (!nullLore) { BukkitMethod.SET_LORE.invokeMethod(meta, super.lore); }
-            if (!nullName) { BukkitMethod.SET_DISPLAY_NAME.invokeMethod(meta, super.name); }
+            if (!nullLore) {
+                BukkitMethod.SET_LORE.invokeMethod(meta, super.lore);
+            }
+            if (!nullName) {
+                BukkitMethod.SET_DISPLAY_NAME.invokeMethod(meta, super.name);
+            }
             BukkitMethod.SET_ITEM_META.invokeMethod(stack, meta);
+            System.out.println(meta.toString());
         }
 
         return stack;

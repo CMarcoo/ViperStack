@@ -9,7 +9,7 @@ public final class ViperStackBuilder extends AbstractViperStack {
     }
 
     public final ViperStackBuilder amount(final int amount) {
-        super.amount = amount;
+        setAmount(amount);
         return this;
     }
 
@@ -23,21 +23,25 @@ public final class ViperStackBuilder extends AbstractViperStack {
     }
 
     public final ViperStackBuilder name(final String name) {
-        super.name = name;
+        setName(name);
         return this;
     }
 
     public final ViperStackBuilder lore(final String... lore) {
-        super.lore = Arrays.asList(lore);
+        setLore(Arrays.asList(lore));
         return this;
     }
 
     public final ViperStackBuilder lore(final List<String> lore) {
-        super.lore = lore;
+        setLore(lore);
         return this;
     }
 
     public final ViperStack build() {
-        return new ViperStack(this);
+        final ViperStack viperStack = new ViperStack(this.material);
+        viperStack.setName(name);
+        viperStack.setAmount(amount);
+        viperStack.setLore(lore);
+        return viperStack;
     }
 }

@@ -1,6 +1,5 @@
 package me.thevipershow.viperstack;
 
-import java.util.Collections;
 import java.util.List;
 import me.thevipershow.viperstack.packages.classes.BukkitPackage;
 
@@ -12,7 +11,7 @@ public abstract class AbstractViperStack {
     protected List<String> lore = null;
 
     protected static boolean isMaterial(final Object o) {
-        return o.getClass().isAssignableFrom(BukkitPackage.PACKAGE.reflectInto(BukkitPackage.PackageType.MATERIAL));
+       return o.getClass().isAssignableFrom(BukkitPackage.PACKAGE.reflectInto(BukkitPackage.PackageType.MATERIAL));
     }
 
     public AbstractViperStack(final Object material) {

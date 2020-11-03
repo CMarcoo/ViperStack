@@ -22,7 +22,7 @@ public enum BukkitPackage {
         }
     }
 
-    private final Map<PackageType, Class<?>> reflectionCache = new EnumMap<>(PackageType.class);
+    private final static Map<PackageType, Class<?>> reflectionCache = new EnumMap<>(PackageType.class);
 
     public final Class<?> reflectInto(final PackageType packageType) {
         Class<?> clazz = reflectionCache.get(packageType);
