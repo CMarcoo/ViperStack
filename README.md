@@ -4,12 +4,12 @@ Library for ItemStacks and related by me!
 
 ```java
 // Code sample to generate a cool simple item:
-final Object o = new ViperStackBuilder(Material.EMERALD)
+        final Object obj = new ViperStackBuilder(Material.EMERALD)
                 .amount(16)
                 .name(ChatColor.GREEN + "Kryptonite")
                 .lore(ChatColor.GREEN + "A rare mineral, ", ChatColor.DARK_GREEN + "it seems dangerous...")
                 .build().bukkitStack();
 
-        final ItemStack kryptonite = (ItemStack) o;
+        final ItemStack kryptonite = (ItemStack) obj;
         event.getPlayer().getInventory().addItem(kryptonite);
 ```
